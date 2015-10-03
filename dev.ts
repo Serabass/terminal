@@ -51,7 +51,9 @@ export module Dev {
             var cmd:Command = Utils.build(command, ...params);
 
             if (this.bcc) {
-                cmd.bytes.push(BCC.build(cmd.bytes));
+                let bcc:number = BCC.build(cmd.bytes);
+                let arr:Buffer[] = [cmd.bytes, new Buffer([bcc])];
+                cmd.bytes = Buffer.concat(arr);
             }
 
             /// ...logic

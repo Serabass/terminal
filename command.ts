@@ -75,14 +75,16 @@
             "DEL": 0x7F
         };
 
-        constructor(public bytes:number[]) {}
+        constructor(public bytes:Buffer) {}
 
-        public toString() {
+        public toString():string {
             var res:string[] = [];
 
-            this.bytes.forEach((b:number) => {
+
+            for (var i = 0; i < this.bytes.length; i++) {
+                var b = this.bytes.readInt8(i);
                 res.push(`0x${b.toString(16)}`);
-            });
+            }
 
             return res.join(' ');
         }
