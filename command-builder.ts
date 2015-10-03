@@ -12,7 +12,7 @@ export module CommandBuilder {
     }
 
     export class CommandBuilder {
-        public static build(cmd:string, ...params:any[]):Command {
+        public static build(cmd:string, ...params:any[]):typeof Command {
             var result:number[] = [],
                 lambdas:Lambda[] = [
                 new Lambda(REGEXP_HEXNUM, (x:string) => result.push(parseInt(x, 16))),
@@ -50,7 +50,8 @@ export module CommandBuilder {
                 }
             }
 
-            return new Command(result);
+            return null;
+            // return new Command(result);
         }
     }
 }

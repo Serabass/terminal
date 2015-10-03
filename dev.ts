@@ -1,7 +1,7 @@
 /// <reference path="typings/tsd.d.ts" />
 
-import * as SerialPort from "serialport"
-import Command from "./command";
+import {SerialPort} from "serialport"
+import Command from "./command"
 import BCC from "./bcc"
 
 export module Dev {
