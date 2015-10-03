@@ -1,5 +1,5 @@
 declare module "serialport" {
-    declare class SerialPort {
+    export default class SerialPort {
         constructor(options:any);
         isOpen():boolean;
         open(fn:Function):void;

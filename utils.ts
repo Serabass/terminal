@@ -1,6 +1,7 @@
+import Command from "./command"
 
-export class Utils {
-    public static build(command:string, ...params:any[]) {
-
+export default class Utils {
+    public static build(command:string, ...params:any[]):Command {
+        return null;
     }
 }

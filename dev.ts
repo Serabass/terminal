@@ -1,8 +1,9 @@
 /// <reference path="typings/tsd.d.ts" />
 
-import {SerialPort} from "serialport"
+import SerialPort from "serialport"
 import Command from "./command"
 import BCC from "./bcc"
+import Utils from "./utils"
 
 export module Dev {
     export class Dev {
@@ -22,7 +23,7 @@ export module Dev {
 
         public init(port:string, baudRate:number = this.baudRate):Promise<any> {
             return new Promise((resolve:Function, reject:Function) => {
-                this.serialPort = new SerialPort({port});
+                this.serialPort = new SerialPort({port, baudRate});
 
                 this.serialPort.open(function (err:any) {
                     if (err) {
@@ -49,7 +50,7 @@ export module Dev {
 
             var cmd:Command = Utils.build(command, ...params);
 
-            if (bcc) {
+            if (this.bcc) {
                 cmd.bytes.push(BCC.build(cmd.bytes));
             }
 
