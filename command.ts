@@ -1,5 +1,5 @@
-export module Commands {
-    export class Command {
+//export module Commands {
+    export default class Command {
         /**
          * http://www.december.com/html/spec/ascii.html
          * NUL	null
@@ -36,7 +36,7 @@ export module Commands {
          * US	unit separator
          * SP	space
          **/
-        public static codes = {
+        public static codes:any = {
             "NUL": 0x00,
             "SOH": 0x01,
             "STX": 0x02,
@@ -85,4 +85,4 @@ export module Commands {
             return res.join(' ');
         }
     }
-}
+//}
