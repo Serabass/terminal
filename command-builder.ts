@@ -14,31 +14,35 @@ export default class CommandBuilder {
     public static build(cmd:string, ...params:any[]):Command {
         var result:number[] = [],
             lambdas:Lambda[] = [
-            new Lambda(REGEXP_HEXNUM, (x:string) => result.push(parseInt(x, 16))),
-            new Lambda(REGEX_DECNUM, (x:string) => result.push(parseInt(x, 10))),
-            new Lambda(REGEXP_CMDKEY, (x:string) => {
-                var code:number = Command.codes[x.substr(1)];
+                new Lambda(REGEXP_HEXNUM, (x:string) => result.push(parseInt(x, 16))),
+                new Lambda(REGEX_DECNUM, (x:string) => result.push(parseInt(x, 10))),
+                new Lambda(REGEXP_CMDKEY, (x:string) => {
+                    var code:number = Command.codes[x.substr(1)];
 
-                if (code === void 0)
-                    throw new Error(`Command ${x} is not recognized`);
+                    if (code === void 0)
+                        throw new Error(`Command ${x} is not recognized`);
 
-                result.push(code);
-            }),
-            new Lambda(REGEXP_STRING, (x:string) => {
-                for (var char of x.substr(1)) {
-                    result.push(x.charCodeAt(0));
-                }
-            })
-        ],
-            args:string[] = cmd.split(/\s+/i)
+                    result.push(code);
+                }),
+                new Lambda(REGEXP_STRING, (x:string) => {
+                    console.log(x);
+                    for (var char of x.substr(1)) {
+                        result.push(char.charCodeAt(0));
+                    }
+                })
+            ],
+            args:string[]
         ;
 
         if (params.length > 0) {
             var i = 0;
             params.forEach((x:any) => {
-                cmd = cmd.replace(`@${++i}`, x.toString());
+                cmd = cmd.replace(new RegExp(`@${++i}`, 'g'), `*${String.fromCharCode(x)}`);
             });
+
         }
+
+        args = cmd.split(/\s+/);
 
         for (var arg of args) {
             for (var lambda of lambdas) {
