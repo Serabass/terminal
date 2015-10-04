@@ -1,7 +1,6 @@
 import Command from "./command"
+import CommandBuilder from './command-builder'
 
-export default class Utils {
-    public static build(command:string, ...params:any[]):Command {
-        return null;
-    }
-}
+String.prototype.build = function (...params:any[]):Command {
+    return CommandBuilder.build(this, ...params);
+};

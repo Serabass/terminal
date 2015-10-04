@@ -5,7 +5,7 @@
     else if (typeof define === 'function' && define.amd) {
         define(deps, factory);
     }
-})(["require", "exports", './command-builder'], function (require, exports) {
-    var command_builder_1 = require('./command-builder');
-    console.log(command_builder_1.default.build('.NUL .ENQ'));
+})(["require", "exports"], function (require, exports) {
+    require('./utils');
+    console.log('.NUL @1'.build(0xFF));
 });

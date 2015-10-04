@@ -1,3 +1,5 @@
+require('./utils');
+
 import CommandBuilder from './command-builder'
 
-console.log(CommandBuilder.build('.NUL .ENQ'));
+console.log('.NUL @1'.build(0xFF));
