@@ -3,7 +3,8 @@
 import SerialPort from "serialport"
 import Command from "./command"
 import BCC from "./bcc"
-import Utils from "./utils"
+
+require('./utils');
 
 export module Dev {
     export class Dev {
@@ -41,14 +42,14 @@ export module Dev {
 
         public stop() {}
 
-        public send(name:string, ...params:any[]):void {
+        public send(name:string, ...params:any[]):Promise<any> {
 
             var command:string = this.getCommands()[name];
 
             if ( command === void 0)
                 throw new Error(`Command ${name} not found`);
 
-            var cmd:Command = Utils.build(command, ...params);
+            var cmd:Command = command.build<Command>(...params);
 
             if (this.bcc) {
                 let bcc:number = BCC.build(cmd.bytes);
@@ -57,6 +58,17 @@ export module Dev {
             }
 
             /// ...logic
+
+            return new Promise<any>((reject:Function, resolve:Function) => {
+                this.serialPort.write(cmd.bytes, (err:any, results:any):void => {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+
+                    resolve(results);
+                });
+            });
         }
     }
 }
