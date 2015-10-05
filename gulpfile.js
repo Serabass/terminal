@@ -4,10 +4,11 @@ var gulp = require("gulp"),
 var plugins = pluginsFactory();
 
 var tsConfig = {
-    "module": "umd",
+    "module": "commonjs",
     target: "ES5",
     experimentalDecorators: true,
-    noImplicitAny: true
+    noImplicitAny: true,
+    sourceMap: true
 };
 
 gulp.task("ts", function () {
