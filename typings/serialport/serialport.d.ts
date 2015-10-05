@@ -4,5 +4,6 @@ declare module "serialport" {
         isOpen():boolean;
         open(fn:Function):void;
         write(data:(String | Buffer), callback:(err:any, results:any) => void):void;
+        close(fn:Function):void;
     }
 }
