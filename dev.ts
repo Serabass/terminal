@@ -2,7 +2,7 @@
 
 import SerialPort from "serialport"
 import Command from "./command"
-import Crypto from "./crypto"
+import Crypto from "./crypto2"
 import * as events from "events";
 
 export default class Dev extends events.EventEmitter {
