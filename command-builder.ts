@@ -11,7 +11,7 @@ class Lambda {
 }
 
 export default class CommandBuilder {
-    public static build(cmd:string, ...params:any[]):Command {
+    public static build(cmd:string, params:any):Command {
         var result:number[] = [],
             lambdas:Lambda[] = [
                 new Lambda(REGEXP_HEXNUM, (x:string) => result.push(parseInt(x, 16))),
@@ -25,7 +25,6 @@ export default class CommandBuilder {
                     result.push(code);
                 }),
                 new Lambda(REGEXP_STRING, (x:string) => {
-                    console.log(x);
                     for (var char of x.substr(1)) {
                         result.push(char.charCodeAt(0));
                     }
@@ -34,18 +33,19 @@ export default class CommandBuilder {
             args:string[]
         ;
 
-        if (params.length > 0) {
-            var i = 0;
-            params.forEach((x:any) => {
-                cmd = cmd.replace(new RegExp(`@${++i}`, 'g'), `*${String.fromCharCode(x)}`);
-            });
+        args = cmd.replace(/@(\w+)/g, (match:string, ...args:string[]):string => {
+                var key = args[0];
 
-        }
+                if (params[key] === void 0)
+                    throw `Param ${key} is not passed`;
 
-        args = cmd.split(/\s+/);
+                return params[key];
+            })
+            .split(/\s+/)
+        ;
 
-        for (var arg of args) {
-            for (var lambda of lambdas) {
+        for (let arg of args) {
+            for (let lambda of lambdas) {
                 if (lambda.regexp.test(arg)) {
                     lambda.fn(arg);
                     break;
