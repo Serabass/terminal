@@ -1,5 +1,5 @@
 
-export default class Crypto {
+export class Crypto {
     public static getBCC(buffer:Buffer):number {
         var result:number = buffer.readInt8(0);
 

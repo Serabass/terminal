@@ -1,7 +1,7 @@
 /// <reference path="typings/tsd.d.ts" />
 
 //export module Commands {
-    export default class Command {
+    export class Command {
         /**
          * http://www.december.com/html/spec/ascii.html
          * NUL	null

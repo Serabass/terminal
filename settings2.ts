@@ -5,7 +5,7 @@ class Device {
     constructor(public name:string, public baudRate:number) {}
 }
 
-export default class Settings {
+export class Settings {
 
     public static devices:any = null;
 

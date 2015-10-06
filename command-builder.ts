@@ -1,4 +1,4 @@
-import Command from "./command"
+import { Command } from "./command"
 
 var REGEXP_HEXNUM = /^-?(?:0x[A-F\d]{1,2})$/,
     REGEX_DECNUM  = /^-?[\d]{1,3}$/,
@@ -10,7 +10,7 @@ class Lambda {
     constructor(public regexp:RegExp, public fn:(x:string)=>void) {}
 }
 
-export default class CommandBuilder {
+export class CommandBuilder {
     public static build(cmd:string, params:any):Command {
         var result:number[] = [],
             lambdas:Lambda[] = [

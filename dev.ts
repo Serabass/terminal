@@ -1,11 +1,11 @@
 /// <reference path="typings/tsd.d.ts" />
 
-import SerialPort from "serialport"
-import Command from "./command"
-import Crypto from "./crypto2"
+var SerialPort = require("serialport");
+import { Command } from "./command"
+import { Crypto } from "./crypto2"
 import * as events from "events";
 
-export default class Dev extends events.EventEmitter {
+export class Dev extends events.EventEmitter {
     public port:string;
     public serialPort:SerialPort;
     public name:string;

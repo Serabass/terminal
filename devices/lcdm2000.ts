@@ -1,9 +1,9 @@
 /// <reference path="../typings/tsd.d.ts" />
 
-import Dev from '../dev';
-import Command from "../command";
+import { Dev } from '../dev';
+import { Command } from "../command";
 
-export default class LCDM2000 extends Dev {
+export class LCDM2000 extends Dev {
 
     private _levels:any = {
         u: 0x45,
