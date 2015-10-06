@@ -17,7 +17,7 @@ gulp.task("ts", function () {
         "!node_modules/**/*.ts"
     ])
         .pipe(plugins.tsc(tsConfig))
-        .pipe(gulp.dest("."));
+        .pipe(gulp.dest("dest"));
 });
 
 gulp.task("default", ["ts"]);
