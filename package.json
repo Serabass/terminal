@@ -7,7 +7,8 @@
     "gulp": "^3.9.0",
     "gulp-tsc": "^1.1.1",
     "gulp-typescript": "^2.9.0",
-    "serialport": "^1.7.4"
+    "serialport": "^1.7.4",
+    "ssp": "0.0.8"
   },
   "devDependencies": {
     "gulp-load-plugins": "^1.0.0-rc.1",
