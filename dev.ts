@@ -12,17 +12,23 @@ export class Dev extends events.EventEmitter {
     public baudRate:number = 9600;
     public bcc:boolean = false;
 
-    constructor() {
+    constructor({port, baudRate = 9600}:PortData) {
         super();
+
+        this.port = port;
+        this.baudRate = baudRate;
     }
 
     public isOpen():boolean {
         return this.serialPort.isOpen();
     }
 
-    public init({port, baudRate = this.baudRate}:{port:string, baudRate:number}):Promise<any> {
+    public init():Promise<any> {
         return new Promise((resolve:Function, reject:Function) => {
-            this.serialPort = new SerialPort({port, baudRate});
+            this.serialPort = new SerialPort({
+                port: this.port,
+                baudRate: this.baudRate
+            });
 
             this.serialPort.open(function (err:any) {
                 if (err) {

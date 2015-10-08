@@ -13,7 +13,7 @@ export class LCDM2000 extends Dev {
 
     private _id:number = 0x01;
 
-    public getCommands():{} {
+    public getCommands():any {
         return {
             dispense       : [
                 '.EOT'          ,
@@ -38,7 +38,7 @@ export class LCDM2000 extends Dev {
         };
     }
 
-    public buildDispense(level:string, count:number):Command { //:Promise<any> {
+    public buildDispense(level:string, count:number):Command {
 
         var bill:number,
             decimals:number,

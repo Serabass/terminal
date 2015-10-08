@@ -7,3 +7,16 @@
 interface String {
     build<T>(...params:any[]):T;
 }
+
+
+declare type NVConstructorOptions = {
+    device?:string,
+    type?:string,
+    currencies?:number[],
+    baudrate:number
+};
+declare type NumberOrString = number | string;
+declare type PortData = {
+    port:string,
+    baudRate:number
+};
