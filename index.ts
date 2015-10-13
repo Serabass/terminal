@@ -44,7 +44,7 @@ function createDevices() {
     }
 
 
-    console.log(devices.COM8.device.watch().init());
+    console.log(devices.COM4.device.initWatcher());
 
 }
 createDevices();

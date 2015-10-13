@@ -93,7 +93,13 @@ export class Dev extends events.EventEmitter {
         });
     }
 
+    public getFileName():string {
+        return `${this.port}_${this.deviceName}.txt`
+    }
+
     public watch():Watcher {
         return new Watcher(this);
     }
+
+    public initWatcher():void {}
 }

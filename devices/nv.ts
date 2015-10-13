@@ -92,6 +92,10 @@ export class NV {
         return this;
     }
 
+    public getFileName():string {
+        return `${this.port}_${this.deviceName}.txt`
+    }
+
     public watch():Watcher {
         return new Watcher(this);
     }

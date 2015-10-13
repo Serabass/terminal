@@ -3,6 +3,8 @@
 import { Dev } from '../dev';
 import { Command } from "../command";
 
+var fs = require('fs');
+
 export class LCDM2000 extends Dev {
 
     public deviceName:string = 'LCDM2000';
@@ -61,5 +63,35 @@ export class LCDM2000 extends Dev {
     public runDispense(level:string, count:number):Promise<any> {
         var cmd:Command = this.buildDispense(level, count);
         return this.send(cmd);
+    }
+
+    public initWatcher() {
+        this
+            .watch()
+                .init()
+                .onChange(() => {
+                    var filename:string = this.getFileName(),
+                        fileContents:string = fs.readFileSync(filename).toString('utf-8'),
+                        lines:number[] = fileContents
+                            .split(/[\r\n]+/)
+                            .map((line) => parseInt(line, 10))
+                    ;
+
+                    switch (lines.length) {
+                        case 1:
+                            if ( ! isNaN(lines[0])) {
+                                this.buildDispense('u', lines[0]);
+                            }
+                            break;
+                        case 2:
+                            if ( ! isNaN(lines[0])) {
+                                this.buildDispense('u', lines[0]);
+                            }
+                            if ( ! isNaN(lines[1])) {
+                                this.buildDispense('l', lines[1]);
+                            }
+                            break;
+                    }
+                });
     }
 }
