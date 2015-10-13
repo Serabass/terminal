@@ -74,24 +74,27 @@ export class LCDM2000 extends Dev {
                         fileContents:string = fs.readFileSync(filename).toString('utf-8'),
                         lines:number[] = fileContents
                             .split(/[\r\n]+/)
-                            .map((line) => parseInt(line, 10))
+                            .map((line) => parseInt(line, 10)),
+                        cmd:Command
                     ;
 
                     switch (lines.length) {
                         case 1:
                             if ( ! isNaN(lines[0])) {
-                                this.buildDispense('u', lines[0]);
+                                cmd = this.buildDispense('u', lines[0]);
                             }
                             break;
                         case 2:
                             if ( ! isNaN(lines[0])) {
-                                this.buildDispense('u', lines[0]);
+                                cmd = this.buildDispense('u', lines[0]);
                             }
                             if ( ! isNaN(lines[1])) {
-                                this.buildDispense('l', lines[1]);
+                                cmd = this.buildDispense('l', lines[1]);
                             }
                             break;
                     }
+
+                    console.log(cmd);
                 });
     }
 }

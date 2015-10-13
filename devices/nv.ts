@@ -2,6 +2,8 @@
 /// <reference path="../typings/ssp/ssp.d.ts" />
 
 var ssp:any = require('ssp');
+var fs = require('fs');
+
 
 import { Watcher } from "../watch"
 
@@ -9,6 +11,15 @@ export class NV {
     private ssp:SSP;
 
     private port:string;
+
+    public notes:any = {
+        1:"200KZT",
+        2:"500KZT",
+        3:"1000KZT",
+        4:"2000KZT",
+        5:"5000KZT",
+        6:"10000KZT"
+    };
 
     public deviceName:string = 'NV';
 
@@ -37,7 +48,7 @@ export class NV {
         return this;
     }
 
-    public onReadNote(cb:(note:NumberOrString) => {}):NV {
+    public onReadNote(cb:NVNoteCallback):NV {
         this.ssp.on('read_note', cb);
         return this;
     }
@@ -47,42 +58,42 @@ export class NV {
         return this;
     }
 
-    public onNoteClearedFromFront(cb:(note:NumberOrString) => {}):NV {
+    public onNoteClearedFromFront(cb:NVNoteCallback):NV {
         this.ssp.on('note_cleared_from_front', cb);
         return this;
     }
 
-    public onNoteClearedToCashbox(cb:(note:NumberOrString) => {}):NV {
+    public onNoteClearedToCashbox(cb:NVNoteCallback):NV {
         this.ssp.on('note_cleared_to_cashbox', cb);
         return this;
     }
 
-    public onCreditNote(cb:(note:NumberOrString) => {}):NV {
+    public onCreditNote(cb:NVNoteCallback):NV {
         this.ssp.on('credit_note', cb);
         return this;
     }
 
-    public onSafeNoteJam(cb:(note:NumberOrString) => {}):NV {
+    public onSafeNoteJam(cb:NVNoteCallback):NV {
         this.ssp.on('safe_note_jam', cb);
         return this;
     }
 
-    public onUnsafeNoteJam(cb:(note:NumberOrString) => {}):NV {
+    public onUnsafeNoteJam(cb:NVNoteCallback):NV {
         this.ssp.on('unsafe_note_jam', cb);
         return this;
     }
 
-    public onFraudAttempt(cb:(note:NumberOrString) => {}):NV {
+    public onFraudAttempt(cb:NVNoteCallback):NV {
         this.ssp.on('fraud_attempt', cb);
         return this;
     }
 
-    public onStackerFull(cb:(note:NumberOrString) => {}):NV {
+    public onStackerFull(cb:NVNoteCallback):NV {
         this.ssp.on('stacker_full', cb);
         return this;
     }
 
-    public onNoteRejected(cb:(note:NumberOrString) => {}):NV {
+    public onNoteRejected(cb:NVNoteCallback):NV {
         this.ssp.on('note_rejected', cb);
         return this;
     }
@@ -90,6 +101,14 @@ export class NV {
     public onError(cb:(err:any) => {}):NV {
         this.ssp.on('error', cb);
         return this;
+    }
+
+    public initInput() {
+        return this.onReadNote((note:NumberOrString) => {
+            fs.appendFile(this.getFileName(), this.notes[note], () => {
+
+            });
+        });
     }
 
     public getFileName():string {

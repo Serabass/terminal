@@ -15,6 +15,8 @@ declare type NVConstructorOptions = {
     currencies?:number[],
     baudrate:number
 };
+
+declare type NVNoteCallback = (note:NumberOrString) => void;
 declare type NumberOrString = number | string;
 declare type PortData = {
     port:string,
