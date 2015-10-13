@@ -22,15 +22,18 @@ export class Settings {
             return this.devices;
 
         return this.devices = (() => {
-            var file:string = fs.readFileSync('settings.txt').toString();
-            var lines:string[] = file.split(/[\r\n]+/g);
-            var result:DeviceSet = {};
+            var file:string = fs.readFileSync('settings.txt').toString(),
+                lines:string[] = file.split(/[\r\n]+/g),
+                result:DeviceSet = {}
+            ;
 
             for (let line of lines) {
-                let parts:string[] = line.split(';');
-                let port:string = parts[0];
-                let name:string = parts[1];
-                let baudRate:number = parseInt(parts[2], 10);
+                let parts:string[] = line.split(';'),
+                    port:string = parts[0],
+                    name:string = parts[1],
+                    baudRate:number = parseInt(parts[2], 10)
+                ;
+
                 result[port] = {name, baudRate};
             }
 

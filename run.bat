@@ -1,1 +1,2 @@
-node dest/index
+@echo off
+gulp && node dest/index

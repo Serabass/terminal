@@ -3,6 +3,7 @@
 var SerialPort = require("serialport").SerialPort;
 import { Command } from "./command"
 import { Crypto } from "./crypto2"
+import { Watcher } from "./watch"
 import * as events from "events";
 
 export class Dev extends events.EventEmitter {
@@ -11,6 +12,8 @@ export class Dev extends events.EventEmitter {
     public name:string;
     public baudRate:number = 9600;
     public bcc:boolean = false;
+
+    public deviceName:string = '{...}';
 
     constructor({port, baudRate = 9600}:PortData) {
         super();
@@ -88,5 +91,9 @@ export class Dev extends events.EventEmitter {
                 resolve(results);
             });
         });
+    }
+
+    public watch():Watcher {
+        return new Watcher(this);
     }
 }

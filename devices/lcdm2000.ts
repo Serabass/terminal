@@ -5,6 +5,8 @@ import { Command } from "../command";
 
 export class LCDM2000 extends Dev {
 
+    public deviceName:string = 'LCDM2000';
+
     private _levels:any = {
         u: 0x45,
         l: 0x55,

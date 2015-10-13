@@ -44,13 +44,7 @@ function createDevices() {
     }
 
 
-    console.log(devices);
+    console.log(devices.COM8.device.watch().init());
 
 }
-
-//createDevices();
-
-
-Settings.getPorts(function (err:any, ports:any[]) {
-    console.log(ports);
-});
+createDevices();

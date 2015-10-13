@@ -3,10 +3,17 @@
 
 var ssp:any = require('ssp');
 
+import { Watcher } from "../watch"
+
 export class NV {
     private ssp:SSP;
 
+    private port:string;
+
+    public deviceName:string = 'NV';
+
     public constructor(options:NVConstructorOptions) {
+        this.port = options.device;
         this.ssp = new ssp(options);
     }
 
@@ -83,5 +90,9 @@ export class NV {
     public onError(cb:(err:any) => {}):NV {
         this.ssp.on('error', cb);
         return this;
+    }
+
+    public watch():Watcher {
+        return new Watcher(this);
     }
 }
