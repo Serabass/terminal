@@ -1,6 +1,6 @@
 /// <reference path="typings/tsd.d.ts" />
 
-var SerialPort = require("serialport");
+var SerialPort = require("serialport").SerialPort;
 import { Command } from "./command"
 import { Crypto } from "./crypto2"
 import * as events from "events";
@@ -25,8 +25,7 @@ export class Dev extends events.EventEmitter {
 
     public init():Promise<any> {
         return new Promise((resolve:Function, reject:Function) => {
-            this.serialPort = new SerialPort({
-                port: this.port,
+            this.serialPort = new SerialPort(this.port, {
                 baudRate: this.baudRate
             });
 
@@ -44,7 +43,7 @@ export class Dev extends events.EventEmitter {
         return {};
     }
 
-    public buildCommand(name:string, params:{}):Command {
+    public buildCommand(name:string, params:any):Command {
         var command:string = this.getCommands()[name];
         var cmd:Command;
 
